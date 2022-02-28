@@ -6,12 +6,14 @@ Run `dotnet build /t:GenerateCode` to generate code.
 azure-arm: true
 library-name: AppConfiguration
 namespace: Azure.ResourceManager.AppConfiguration
-require: https://raw.githubusercontent.com/Azure/azure-rest-api-specs/d302c82f32daec0feb68cd7d68d45ba898b67ee7/specification/appconfiguration/resource-manager/readme.md
+require: https://raw.githubusercontent.com/Azure/azure-rest-api-specs/07a5e295f24eb5ee641cb6bec6bbbfa49d1c7b40/specification/appconfiguration/resource-manager/readme.md
 clear-output-folder: true
 skip-csproj: true
 modelerfour:
   lenient-model-deduplication: true
 no-property-type-replacement: RegenerateKeyOptions
+list-exception:
+- /subscriptions/{subscriptionId}/providers/Microsoft.AppConfiguration/locations/{location}/deletedConfigurationStores/{configStoreName}
 directive:
   - rename-model:
       from: ConfigurationStoreUpdateParameters

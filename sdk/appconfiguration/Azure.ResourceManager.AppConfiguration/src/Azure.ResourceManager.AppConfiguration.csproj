@@ -8,4 +8,7 @@
     </Description>
     <PackageTags>azure;management;appconfiguration</PackageTags>
   </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Generated\" />
+  </ItemGroup>
 </Project>

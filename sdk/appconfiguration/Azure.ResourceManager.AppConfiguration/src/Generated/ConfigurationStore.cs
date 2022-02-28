@@ -98,6 +98,13 @@ namespace Azure.ResourceManager.AppConfiguration
             return new PrivateLinkResourceCollection(Client, Id);
         }
 
+        /// <summary> Gets a collection of KeyValues in the KeyValue. </summary>
+        /// <returns> An object representing collection of KeyValues and their operations over a KeyValue. </returns>
+        public virtual KeyValueCollection GetKeyValues()
+        {
+            return new KeyValueCollection(Client, Id);
+        }
+
         /// <summary>
         /// Gets the properties of the specified configuration store.
         /// Request Path: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppConfiguration/configurationStores/{configStoreName}
@@ -260,7 +267,7 @@ namespace Azure.ResourceManager.AppConfiguration
 
         /// <summary>
         /// Lists the access key for the specified configuration store.
-        /// Request Path: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppConfiguration/configurationStores/{configStoreName}/ListKeys
+        /// Request Path: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppConfiguration/configurationStores/{configStoreName}/listKeys
         /// Operation Id: ConfigurationStores_ListKeys
         /// </summary>
         /// <param name="skipToken"> A skip token is used to continue retrieving items after an operation returns a partial result. If a previous response contains a nextLink element, the value of the nextLink element will include a skipToken parameter that specifies a starting point to use for subsequent calls. </param>
@@ -303,7 +310,7 @@ namespace Azure.ResourceManager.AppConfiguration
 
         /// <summary>
         /// Lists the access key for the specified configuration store.
-        /// Request Path: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppConfiguration/configurationStores/{configStoreName}/ListKeys
+        /// Request Path: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppConfiguration/configurationStores/{configStoreName}/listKeys
         /// Operation Id: ConfigurationStores_ListKeys
         /// </summary>
         /// <param name="skipToken"> A skip token is used to continue retrieving items after an operation returns a partial result. If a previous response contains a nextLink element, the value of the nextLink element will include a skipToken parameter that specifies a starting point to use for subsequent calls. </param>
@@ -346,21 +353,21 @@ namespace Azure.ResourceManager.AppConfiguration
 
         /// <summary>
         /// Regenerates an access key for the specified configuration store.
-        /// Request Path: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppConfiguration/configurationStores/{configStoreName}/RegenerateKey
+        /// Request Path: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppConfiguration/configurationStores/{configStoreName}/regenerateKey
         /// Operation Id: ConfigurationStores_RegenerateKey
         /// </summary>
-        /// <param name="regenerateKeyOptions"> The options for regenerating an access key. </param>
+        /// <param name="regenerateKeyParameters"> The parameters for regenerating an access key. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="regenerateKeyOptions"/> is null. </exception>
-        public async virtual Task<Response<ApiKey>> RegenerateKeyAsync(RegenerateKeyOptions regenerateKeyOptions, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="regenerateKeyParameters"/> is null. </exception>
+        public async virtual Task<Response<ApiKey>> RegenerateKeyAsync(RegenerateKeyOptions regenerateKeyParameters, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNull(regenerateKeyOptions, nameof(regenerateKeyOptions));
+            Argument.AssertNotNull(regenerateKeyParameters, nameof(regenerateKeyParameters));
 
             using var scope = _configurationStoreClientDiagnostics.CreateScope("ConfigurationStore.RegenerateKey");
             scope.Start();
             try
             {
-                var response = await _configurationStoreRestClient.RegenerateKeyAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, regenerateKeyOptions, cancellationToken).ConfigureAwait(false);
+                var response = await _configurationStoreRestClient.RegenerateKeyAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, regenerateKeyParameters, cancellationToken).ConfigureAwait(false);
                 return response;
             }
             catch (Exception e)
@@ -372,73 +379,21 @@ namespace Azure.ResourceManager.AppConfiguration
 
         /// <summary>
         /// Regenerates an access key for the specified configuration store.
-        /// Request Path: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppConfiguration/configurationStores/{configStoreName}/RegenerateKey
+        /// Request Path: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppConfiguration/configurationStores/{configStoreName}/regenerateKey
         /// Operation Id: ConfigurationStores_RegenerateKey
         /// </summary>
-        /// <param name="regenerateKeyOptions"> The options for regenerating an access key. </param>
+        /// <param name="regenerateKeyParameters"> The parameters for regenerating an access key. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="regenerateKeyOptions"/> is null. </exception>
-        public virtual Response<ApiKey> RegenerateKey(RegenerateKeyOptions regenerateKeyOptions, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="regenerateKeyParameters"/> is null. </exception>
+        public virtual Response<ApiKey> RegenerateKey(RegenerateKeyOptions regenerateKeyParameters, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNull(regenerateKeyOptions, nameof(regenerateKeyOptions));
+            Argument.AssertNotNull(regenerateKeyParameters, nameof(regenerateKeyParameters));
 
             using var scope = _configurationStoreClientDiagnostics.CreateScope("ConfigurationStore.RegenerateKey");
             scope.Start();
             try
             {
-                var response = _configurationStoreRestClient.RegenerateKey(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, regenerateKeyOptions, cancellationToken);
-                return response;
-            }
-            catch (Exception e)
-            {
-                scope.Failed(e);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Lists a configuration store key-value.
-        /// Request Path: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppConfiguration/configurationStores/{configStoreName}/listKeyValue
-        /// Operation Id: ConfigurationStores_ListKeyValue
-        /// </summary>
-        /// <param name="listKeyValueOptions"> The options for retrieving a key-value. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="listKeyValueOptions"/> is null. </exception>
-        public async virtual Task<Response<KeyValue>> GetKeyValueAsync(ListKeyValueOptions listKeyValueOptions, CancellationToken cancellationToken = default)
-        {
-            Argument.AssertNotNull(listKeyValueOptions, nameof(listKeyValueOptions));
-
-            using var scope = _configurationStoreClientDiagnostics.CreateScope("ConfigurationStore.GetKeyValue");
-            scope.Start();
-            try
-            {
-                var response = await _configurationStoreRestClient.ListKeyValueAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, listKeyValueOptions, cancellationToken).ConfigureAwait(false);
-                return response;
-            }
-            catch (Exception e)
-            {
-                scope.Failed(e);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Lists a configuration store key-value.
-        /// Request Path: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppConfiguration/configurationStores/{configStoreName}/listKeyValue
-        /// Operation Id: ConfigurationStores_ListKeyValue
-        /// </summary>
-        /// <param name="listKeyValueOptions"> The options for retrieving a key-value. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="listKeyValueOptions"/> is null. </exception>
-        public virtual Response<KeyValue> GetKeyValue(ListKeyValueOptions listKeyValueOptions, CancellationToken cancellationToken = default)
-        {
-            Argument.AssertNotNull(listKeyValueOptions, nameof(listKeyValueOptions));
-
-            using var scope = _configurationStoreClientDiagnostics.CreateScope("ConfigurationStore.GetKeyValue");
-            scope.Start();
-            try
-            {
-                var response = _configurationStoreRestClient.ListKeyValue(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, listKeyValueOptions, cancellationToken);
+                var response = _configurationStoreRestClient.RegenerateKey(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, regenerateKeyParameters, cancellationToken);
                 return response;
             }
             catch (Exception e)

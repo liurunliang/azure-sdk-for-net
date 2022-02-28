@@ -27,6 +27,14 @@ namespace Azure.ResourceManager.AppConfiguration
             );
         }
 
+        /// <summary> Gets a collection of DeletedConfigurationStores in the DeletedConfigurationStore. </summary>
+        /// <param name="subscription"> The <see cref="Subscription" /> instance the method will execute against. </param>
+        /// <returns> An object representing collection of DeletedConfigurationStores and their operations over a DeletedConfigurationStore. </returns>
+        public static DeletedConfigurationStoreCollection GetDeletedConfigurationStores(this Subscription subscription)
+        {
+            return GetExtensionClient(subscription).GetDeletedConfigurationStores();
+        }
+
         /// <summary>
         /// Lists the configuration stores for a given subscription.
         /// Request Path: /subscriptions/{subscriptionId}/providers/Microsoft.AppConfiguration/configurationStores
@@ -53,6 +61,32 @@ namespace Azure.ResourceManager.AppConfiguration
         public static Pageable<ConfigurationStore> GetConfigurationStores(this Subscription subscription, string skipToken = null, CancellationToken cancellationToken = default)
         {
             return GetExtensionClient(subscription).GetConfigurationStores(skipToken, cancellationToken);
+        }
+
+        /// <summary>
+        /// Gets information about the deleted configuration stores in a subscription.
+        /// Request Path: /subscriptions/{subscriptionId}/providers/Microsoft.AppConfiguration/deletedConfigurationStores
+        /// Operation Id: ConfigurationStores_ListDeleted
+        /// </summary>
+        /// <param name="subscription"> The <see cref="Subscription" /> instance the method will execute against. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> An async collection of <see cref="DeletedConfigurationStore" /> that may take multiple service requests to iterate over. </returns>
+        public static AsyncPageable<DeletedConfigurationStore> GetDeletedConfigurationStoresAsync(this Subscription subscription, CancellationToken cancellationToken = default)
+        {
+            return GetExtensionClient(subscription).GetDeletedConfigurationStoresAsync(cancellationToken);
+        }
+
+        /// <summary>
+        /// Gets information about the deleted configuration stores in a subscription.
+        /// Request Path: /subscriptions/{subscriptionId}/providers/Microsoft.AppConfiguration/deletedConfigurationStores
+        /// Operation Id: ConfigurationStores_ListDeleted
+        /// </summary>
+        /// <param name="subscription"> The <see cref="Subscription" /> instance the method will execute against. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="DeletedConfigurationStore" /> that may take multiple service requests to iterate over. </returns>
+        public static Pageable<DeletedConfigurationStore> GetDeletedConfigurationStores(this Subscription subscription, CancellationToken cancellationToken = default)
+        {
+            return GetExtensionClient(subscription).GetDeletedConfigurationStores(cancellationToken);
         }
 
         /// <summary>

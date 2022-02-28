@@ -37,7 +37,7 @@ namespace Azure.ResourceManager.AppConfiguration
         public AppConfigurationManagementRestOperations(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, string applicationId, Uri endpoint = null, string apiVersion = default)
         {
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
-            _apiVersion = apiVersion ?? "2020-06-01";
+            _apiVersion = apiVersion ?? "2021-10-01-preview";
             ClientDiagnostics = clientDiagnostics;
             _pipeline = pipeline;
             _userAgent = Core.HttpMessageUtilities.GetUserAgentName(this, applicationId);
